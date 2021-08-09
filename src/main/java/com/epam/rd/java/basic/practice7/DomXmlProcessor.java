@@ -8,20 +8,22 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 public class DomXmlProcessor {
 
     private static final String ERR_UNKNOWN_NODE = "Unknown XML node: ";
 
-    private final Flowers flowers;
+    private final List<Flower> flowers;
     private final String fileName;
     private Document xmlDoc;
 
 
     public DomXmlProcessor(String fileName) {
         this.fileName = fileName;
-        flowers = new Flowers();
+        flowers = new ArrayList<>();
     }
 
     public void parseFile() {
@@ -36,12 +38,12 @@ public class DomXmlProcessor {
         NodeList flowerNodes = xmlDoc.getElementsByTagName("flower");
         for (int i = 0; i < flowerNodes.getLength(); i++) {
             NodeList f = flowerNodes.item(i).getChildNodes();
-            flowers.flowers.add(parse(f));
+            flowers.add(parse(f));
         }
     }
 
-    private Flowers.Flower parse(NodeList nodeList) {
-        Flowers.Flower flower = new Flowers.Flower();
+    private Flower parse(NodeList nodeList) {
+        Flower flower = new Flower();
         for (int i = 0; i < nodeList.getLength(); i++) {
             Node node = nodeList.item(i);
             switch (node.getNodeName()) {
@@ -49,7 +51,7 @@ public class DomXmlProcessor {
                     flower.name = node.getTextContent();
                     break;
                 case "soil":
-                    flower.soil = Flowers.Flower.Soil.findValue(node.getTextContent());
+                    flower.soil = Soil.findValue(node.getTextContent());
                     break;
                 case "origin":
                     flower.origin = node.getTextContent();
@@ -61,7 +63,7 @@ public class DomXmlProcessor {
                     setGrowingTips(flower, node.getChildNodes());
                     break;
                 case "multiplying":
-                    flower.multiplying = Flowers.Flower.Multiplying.findValue(node.getTextContent());
+                    flower.multiplying = Multiplying.findValue(node.getTextContent());
                     break;
                 case "#text":
                     break;
@@ -72,8 +74,8 @@ public class DomXmlProcessor {
         return flower;
     }
 
-    private void setVisualParameters(Flowers.Flower flower, NodeList nodes) {
-        Flowers.Flower.VisualParameters vp = new Flowers.Flower.VisualParameters();
+    private void setVisualParameters(Flower flower, NodeList nodes) {
+        VisualParameters vp = new VisualParameters();
         for (int i = 0; i < nodes.getLength(); i++) {
             Node node = nodes.item(i);
             switch (node.getNodeName()) {
@@ -84,7 +86,7 @@ public class DomXmlProcessor {
                     vp.leafColour = node.getTextContent();
                     break;
                 case "aveLenFlower":
-                    vp.aveLenFlower = new Flowers.Flower.VisualParameters.AveLenFlower();
+                    vp.aveLenFlower = new VisualParameters.AveLenFlower();
                     vp.aveLenFlower.value = Integer.parseInt(node.getTextContent());
                     break;
                 case "#text":
@@ -96,25 +98,24 @@ public class DomXmlProcessor {
         flower.visualParameters = vp;
     }
 
-    private void setGrowingTips(Flowers.Flower flower, NodeList nodes) {
-        Flowers.Flower.GrowingTips gt = new Flowers.Flower.GrowingTips();
+    private void setGrowingTips(Flower flower, NodeList nodes) {
+        GrowingTips gt = new GrowingTips();
         for (int i = 0; i < nodes.getLength(); i++) {
             Node node = nodes.item(i);
             switch (node.getNodeName()) {
                 case "tempreture":
-                    Flowers.Flower.GrowingTips.Temperature t = new Flowers.Flower.GrowingTips.Temperature();
+                    Tempreture t = new Tempreture();
                     t.value = Integer.parseInt(node.getTextContent());
-                    gt.temperature = t;
+                    gt.tempreture = t;
                     break;
                 case "lighting":
-                    Flowers.Flower.GrowingTips.Lighting l = new Flowers.Flower.GrowingTips.Lighting();
-                    l.lightRequiring = Flowers.Flower.GrowingTips.Lighting.LightRequiring
-                            .findValue(node.getAttributes().getNamedItem("lightRequiring")
-                                    .getTextContent());
+                    Lighting l = new Lighting();
+                    l.lightRequiring = Lighting.LightRequiring.findValue(node.getAttributes().
+                            getNamedItem("lightRequiring").getTextContent());
                     gt.lighting = l;
                     break;
                 case "watering":
-                    Flowers.Flower.GrowingTips.Watering w = new Flowers.Flower.GrowingTips.Watering();
+                    Watering w = new Watering();
                     w.value = Integer.parseInt(node.getTextContent());
                     gt.watering = w;
                     break;
@@ -136,3 +137,4 @@ public class DomXmlProcessor {
 
 
 }
+

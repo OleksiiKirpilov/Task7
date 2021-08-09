@@ -3,6 +3,7 @@ package com.epam.rd.java.basic.practice7;
 import static com.epam.rd.java.basic.practice7.XmlConstants.ERR_ILLEGAL_ENUM;
 
 public enum Multiplying {
+
     MULT1("листья"),
     MULT2("черенки"),
     MULT3("семена");

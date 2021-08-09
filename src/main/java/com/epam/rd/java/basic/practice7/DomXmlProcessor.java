@@ -12,7 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-import static com.epam.rd.java.basic.practice7.XmlConstants.*;
+import static com.epam.rd.java.basic.practice7.XmlConstants.ERR_UNKNOWN_NODE;
+import static com.epam.rd.java.basic.practice7.XmlConstants.INDENT;
 
 public class DomXmlProcessor {
 
@@ -79,14 +80,14 @@ public class DomXmlProcessor {
             Node node = nodes.item(i);
             switch (node.getNodeName()) {
                 case "stemColour":
-                    vp.stemColour = node.getTextContent();
+                    vp.setStemColour(node.getTextContent());
                     break;
                 case "leafColour":
-                    vp.leafColour = node.getTextContent();
+                    vp.setLeafColour(node.getTextContent());
                     break;
                 case "aveLenFlower":
-                    vp.aveLenFlower = new VisualParameters.AveLenFlower();
-                    vp.aveLenFlower.value = Integer.parseInt(node.getTextContent());
+                    vp.setAveLenFlower(new VisualParameters.AveLenFlower(
+                            Integer.parseInt(node.getTextContent())));
                     break;
                 case INDENT:
                     break;
@@ -103,20 +104,16 @@ public class DomXmlProcessor {
             Node node = nodes.item(i);
             switch (node.getNodeName()) {
                 case "tempreture":
-                    Tempreture t = new Tempreture();
-                    t.value = Integer.parseInt(node.getTextContent());
-                    gt.tempreture = t;
+                    gt.setTempreture(new Tempreture(Integer.parseInt(node.getTextContent())));
                     break;
                 case "lighting":
-                    Lighting l = new Lighting();
-                    l.lightRequiring = Lighting.LightRequiring.findValue(node.getAttributes().
-                            getNamedItem("lightRequiring").getTextContent());
-                    gt.lighting = l;
+                    Lighting.LightRequiring lightRequiring =
+                            Lighting.LightRequiring.findValue(node.getAttributes().
+                                    getNamedItem("lightRequiring").getTextContent());
+                    gt.setLighting(new Lighting(lightRequiring));
                     break;
                 case "watering":
-                    Watering w = new Watering();
-                    w.value = Integer.parseInt(node.getTextContent());
-                    gt.watering = w;
+                    gt.setWatering(new Watering(Integer.parseInt(node.getTextContent())));
                     break;
                 case INDENT:
                     break;

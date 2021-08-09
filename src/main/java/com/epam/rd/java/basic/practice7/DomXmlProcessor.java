@@ -12,18 +12,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
+import static com.epam.rd.java.basic.practice7.XmlConstants.*;
+
 public class DomXmlProcessor {
 
-    private static final String ERR_UNKNOWN_NODE = "Unknown XML node: ";
-
-    private final List<Flower> flowers;
+    private final List<Flower> flowers = new ArrayList<>();
     private final String fileName;
     private Document xmlDoc;
 
 
     public DomXmlProcessor(String fileName) {
         this.fileName = fileName;
-        flowers = new ArrayList<>();
     }
 
     public void parseFile() {
@@ -48,13 +47,13 @@ public class DomXmlProcessor {
             Node node = nodeList.item(i);
             switch (node.getNodeName()) {
                 case "name":
-                    flower.name = node.getTextContent();
+                    flower.setName(node.getTextContent());
                     break;
                 case "soil":
-                    flower.soil = Soil.findValue(node.getTextContent());
+                    flower.setSoil(Soil.findValue(node.getTextContent()));
                     break;
                 case "origin":
-                    flower.origin = node.getTextContent();
+                    flower.setOrigin(node.getTextContent());
                     break;
                 case "visualParameters":
                     setVisualParameters(flower, node.getChildNodes());
@@ -63,9 +62,9 @@ public class DomXmlProcessor {
                     setGrowingTips(flower, node.getChildNodes());
                     break;
                 case "multiplying":
-                    flower.multiplying = Multiplying.findValue(node.getTextContent());
+                    flower.setMultiplying(Multiplying.findValue(node.getTextContent()));
                     break;
-                case "#text":
+                case INDENT:
                     break;
                 default:
                     Logger.getGlobal().severe(ERR_UNKNOWN_NODE + node.getNodeName());
@@ -89,13 +88,13 @@ public class DomXmlProcessor {
                     vp.aveLenFlower = new VisualParameters.AveLenFlower();
                     vp.aveLenFlower.value = Integer.parseInt(node.getTextContent());
                     break;
-                case "#text":
+                case INDENT:
                     break;
                 default:
                     Logger.getGlobal().severe(ERR_UNKNOWN_NODE + node.getNodeName());
             }
         }
-        flower.visualParameters = vp;
+        flower.setVisualParameters(vp);
     }
 
     private void setGrowingTips(Flower flower, NodeList nodes) {
@@ -119,13 +118,13 @@ public class DomXmlProcessor {
                     w.value = Integer.parseInt(node.getTextContent());
                     gt.watering = w;
                     break;
-                case "#text":
+                case INDENT:
                     break;
                 default:
                     Logger.getGlobal().severe(ERR_UNKNOWN_NODE + node.getNodeName());
             }
         }
-        flower.growingTips = gt;
+        flower.setGrowingTips(gt);
     }
 
 

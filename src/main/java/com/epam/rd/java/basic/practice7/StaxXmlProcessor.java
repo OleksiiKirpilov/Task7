@@ -85,7 +85,7 @@ public class StaxXmlProcessor extends SaxXmlProcessor {
             return;
         }
         p.parseFile();
-        Collections.sort(p.flowers.getFlowers());
+        p.flowers.sort(2);
         Util.saveFile("output.stax.xml", p.flowers);
     }
 

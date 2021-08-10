@@ -222,7 +222,7 @@ public class DomXmlProcessor {
             return;
         }
         p.parseFile();
-        Collections.sort(p.flowers.getFlowers());
+        p.flowers.sort(0);
         p.saveFile("output.dom.xml");
     }
 

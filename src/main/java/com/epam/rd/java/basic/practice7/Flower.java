@@ -1,6 +1,8 @@
 package com.epam.rd.java.basic.practice7;
 
-public class Flower {
+import java.util.Objects;
+
+public class Flower implements Comparable<Flower> {
 
     private String name;
     private Soil soil;
@@ -57,4 +59,33 @@ public class Flower {
         this.multiplying = multiplying;
     }
 
+    @Override
+    public int compareTo(Flower o) {
+        if (this.equals(o)) {
+            return 0;
+        }
+        return name.compareTo(o.getName());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Flower)) {
+            return false;
+        }
+        Flower flower = (Flower) o;
+        return Objects.equals(name, flower.name)
+                && soil == flower.soil
+                && Objects.equals(origin, flower.origin)
+                && Objects.equals(visualParameters, flower.visualParameters)
+                && Objects.equals(growingTips, flower.growingTips)
+                && multiplying == flower.multiplying;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, soil, origin, visualParameters, growingTips, multiplying);
+    }
 }

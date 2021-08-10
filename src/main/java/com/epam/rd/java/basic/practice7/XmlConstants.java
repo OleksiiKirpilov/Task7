@@ -10,6 +10,6 @@ public class XmlConstants {
     public static final String INDENT = "#text";
     public static final String ERR_UNKNOWN_NODE = "Unknown XML node: ";
 
-    private XmlConstants() {};
+    private XmlConstants() {}
 
 }

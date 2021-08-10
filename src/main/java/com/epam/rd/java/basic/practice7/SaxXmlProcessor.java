@@ -156,7 +156,7 @@ public class SaxXmlProcessor extends DefaultHandler {
                         String.valueOf(f.getGrowingTips().getWatering().getValue()),
                         MEASURE, Watering.getMEASURE());
                 w.writeEndElement();
-                // appent multiplying
+                // append multiplying
                 appendElement(w, FLOWER_MULTIPLYING, f.getMultiplying().toString());
                 w.writeEndElement();
             }

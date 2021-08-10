@@ -8,14 +8,14 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.logging.Logger;
 
-public class DomXmlProcessorTest {
+public class SaxXmlProcessorTest {
 
     @Test()
     public void mainShouldCreateFile() {
-        DomXmlProcessor.main(new String[]{"input.xml"});
+        SaxXmlProcessor.main(new String[]{"input.xml"});
         boolean b = false;
         try {
-            b = Files.deleteIfExists(Paths.get("output.dom.xml"));
+            b = Files.deleteIfExists(Paths.get("output.sax.xml"));
         } catch (IOException e) {
             Logger.getGlobal().severe(e.getMessage());
         }

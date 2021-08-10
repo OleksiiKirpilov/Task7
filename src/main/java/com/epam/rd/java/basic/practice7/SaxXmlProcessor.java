@@ -1,6 +1,5 @@
 package com.epam.rd.java.basic.practice7;
 
-import org.w3c.dom.Document;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;

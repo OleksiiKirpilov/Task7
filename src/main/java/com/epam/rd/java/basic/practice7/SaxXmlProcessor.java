@@ -16,14 +16,14 @@ import static com.epam.rd.java.basic.practice7.XmlConstants.*;
 
 public class SaxXmlProcessor extends DefaultHandler {
 
-    private final Flowers flowers = new Flowers();
-    private final String fileName;
+    protected final Flowers flowers = new Flowers();
+    protected final String fileName;
 
-    private Flower flower;
-    private VisualParameters visualParameters;
-    private GrowingTips growingTips;
-    private Lighting lighting;
-    private StringBuilder text;
+    protected Flower flower;
+    protected VisualParameters visualParameters;
+    protected GrowingTips growingTips;
+    protected Lighting lighting;
+    protected StringBuilder text;
 
 
     @Override
@@ -58,50 +58,7 @@ public class SaxXmlProcessor extends DefaultHandler {
 
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
-        switch (qName) {
-            case FLOWER:
-                flowers.add(flower);
-                break;
-            case FLOWER_NAME:
-                flower.setName(text.toString());
-                break;
-            case FLOWER_SOIL:
-                flower.setSoil(Soil.findValue(text.toString()));
-                break;
-            case FLOWER_ORIGIN:
-                flower.setOrigin(text.toString());
-                break;
-            case FLOWER_AVE_LEN:
-                visualParameters.setAveLenFlower(
-                        new AveLenFlower(Integer.parseInt(text.toString())));
-                break;
-            case FLOWER_STEM_COLOUR:
-                visualParameters.setStemColour(text.toString());
-                break;
-            case FLOWER_LEAF_COLOUR:
-                visualParameters.setLeafColour(text.toString());
-                break;
-            case FLOWER_VISUAL:
-                flower.setVisualParameters(visualParameters);
-                break;
-            case TEMPRETURE:
-                growingTips.setTempreture(new Tempreture(Integer.parseInt(text.toString())));
-                break;
-            case WATERING:
-                growingTips.setWatering(new Watering(Integer.parseInt(text.toString())));
-                break;
-            case LIGHTING:
-                growingTips.setLighting(lighting);
-                break;
-            case FLOWER_MULTIPLYING:
-                flower.setMultiplying(Multiplying.findValue(text.toString()));
-                break;
-            case FLOWER_TIPS:
-                flower.setGrowingTips(growingTips);
-                break;
-            default:
-                break;
-        }
+        Util.processEndTag(qName, this);
     }
 
     public SaxXmlProcessor(String fileName) {

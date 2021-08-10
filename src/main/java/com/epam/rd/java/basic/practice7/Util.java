@@ -78,4 +78,50 @@ public class Util {
         w.writeEndElement();
     }
 
+    public static void processEndTag(String qName, SaxXmlProcessor sax) {
+        switch (qName) {
+            case FLOWER:
+                sax.flowers.add(sax.flower);
+                break;
+            case FLOWER_NAME:
+                sax.flower.setName(sax.text.toString());
+                break;
+            case FLOWER_SOIL:
+                sax.flower.setSoil(Soil.findValue(sax.text.toString()));
+                break;
+            case FLOWER_ORIGIN:
+                sax.flower.setOrigin(sax.text.toString());
+                break;
+            case FLOWER_AVE_LEN:
+                sax.visualParameters.setAveLenFlower(
+                        new AveLenFlower(Integer.parseInt(sax.text.toString())));
+                break;
+            case FLOWER_STEM_COLOUR:
+                sax.visualParameters.setStemColour(sax.text.toString());
+                break;
+            case FLOWER_LEAF_COLOUR:
+                sax.visualParameters.setLeafColour(sax.text.toString());
+                break;
+            case FLOWER_VISUAL:
+                sax.flower.setVisualParameters(sax.visualParameters);
+                break;
+            case TEMPRETURE:
+                sax.growingTips.setTempreture(new Tempreture(Integer.parseInt(sax.text.toString())));
+                break;
+            case WATERING:
+                sax.growingTips.setWatering(new Watering(Integer.parseInt(sax.text.toString())));
+                break;
+            case LIGHTING:
+                sax.growingTips.setLighting(sax.lighting);
+                break;
+            case FLOWER_MULTIPLYING:
+                sax.flower.setMultiplying(Multiplying.findValue(sax.text.toString()));
+                break;
+            case FLOWER_TIPS:
+                sax.flower.setGrowingTips(sax.growingTips);
+                break;
+            default:
+                break;
+        }
+    }
 }

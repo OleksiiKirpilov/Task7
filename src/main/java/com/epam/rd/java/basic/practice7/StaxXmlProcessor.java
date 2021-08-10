@@ -14,17 +14,9 @@ import java.util.logging.Logger;
 
 import static com.epam.rd.java.basic.practice7.XmlConstants.*;
 
-public class StaxXmlProcessor {
+public class StaxXmlProcessor extends SaxXmlProcessor {
 
-    private final Flowers flowers = new Flowers();
-    private final String fileName;
-
-    private Flower flower;
-    private VisualParameters visualParameters;
-    private GrowingTips growingTips;
-    private Lighting lighting;
-    private StringBuilder text;
-
+    @Override
     public void parseFile() {
         XMLInputFactory xif =XMLInputFactory.newInstance();
         xif.setProperty(XMLInputFactory.SUPPORT_DTD, false);
@@ -53,50 +45,7 @@ public class StaxXmlProcessor {
     private void processEndElement(XMLEvent e) {
         EndElement s = e.asEndElement();
         String tag = s.getName().getLocalPart();
-        switch (tag) {
-            case FLOWER:
-                flowers.add(flower);
-                break;
-            case FLOWER_NAME:
-                flower.setName(text.toString());
-                break;
-            case FLOWER_ORIGIN:
-                flower.setOrigin(text.toString());
-                break;
-            case FLOWER_SOIL:
-                flower.setSoil(Soil.findValue(text.toString()));
-                break;
-            case FLOWER_AVE_LEN:
-                visualParameters.setAveLenFlower(
-                        new AveLenFlower(Integer.parseInt(text.toString())));
-                break;
-            case FLOWER_STEM_COLOUR:
-                visualParameters.setStemColour(text.toString());
-                break;
-            case FLOWER_LEAF_COLOUR:
-                visualParameters.setLeafColour(text.toString());
-                break;
-            case FLOWER_VISUAL:
-                flower.setVisualParameters(visualParameters);
-                break;
-            case TEMPRETURE:
-                growingTips.setTempreture(new Tempreture(Integer.parseInt(text.toString())));
-                break;
-            case WATERING:
-                growingTips.setWatering(new Watering(Integer.parseInt(text.toString())));
-                break;
-            case LIGHTING:
-                growingTips.setLighting(lighting);
-                break;
-            case FLOWER_MULTIPLYING:
-                flower.setMultiplying(Multiplying.findValue(text.toString()));
-                break;
-            case FLOWER_TIPS:
-                flower.setGrowingTips(growingTips);
-                break;
-            default:
-                break;
-        }
+        Util.processEndTag(tag, this);
     }
 
     private void processStartElement(XMLEvent e) {
@@ -131,7 +80,7 @@ public class StaxXmlProcessor {
     }
 
     public StaxXmlProcessor(String fileName) {
-        this.fileName = fileName;
+        super(fileName);
     }
 
 }

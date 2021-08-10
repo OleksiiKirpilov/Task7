@@ -2,6 +2,9 @@ package com.epam.rd.java.basic.practice7.pojo;
 
 import java.util.Objects;
 
+/**
+ * class for storing flower data
+ */
 public class Flower implements Comparable<Flower> {
 
     private String name;

@@ -1,9 +1,13 @@
 package com.epam.rd.java.basic.practice7.pojo;
 
+/**
+ * class for storing temperature
+ */
 public class Tempreture {
 
-    private int value;
     private static final String MEASURE = "celcius";
+
+    private final int value;
 
     public Tempreture(int value) {
         this.value = value;
@@ -11,10 +15,6 @@ public class Tempreture {
 
     public int getValue() {
         return value;
-    }
-
-    public void setValue(int value) {
-        this.value = value;
     }
 
     public static String getMEASURE() {

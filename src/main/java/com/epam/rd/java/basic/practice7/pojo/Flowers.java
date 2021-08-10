@@ -4,10 +4,18 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Container class for storing xml data.
+ * Contains list of Flower objects.
+ */
 public class Flowers {
 
     private final List<Flower> list;
 
+    /**
+     * Adds Flower object to container
+      * @param f
+     */
     public void add(Flower f) {
         list.add(f);
     }
@@ -20,6 +28,12 @@ public class Flowers {
         return list;
     }
 
+    /**
+     * Implements different sorting methods.
+     * @param type  type = 0 - uses natural ordering (by name)
+     *              type = 1 - by average flowers length
+     *              type = 2 - by flower origin
+     */
     public void sort(int type) {
         switch (type) {
             case 0:

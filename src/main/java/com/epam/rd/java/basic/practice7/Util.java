@@ -19,8 +19,21 @@ import java.util.logging.Logger;
 
 import static com.epam.rd.java.basic.practice7.XmlConstants.*;
 
+
+/**
+ * Util class
+ * validates xml using xsd,
+ * saves container object to xml file
+ */
 public class Util {
 
+    /**
+     * validates xml file using xsd file
+     * @param xml - xml file name
+     * @param xsd - xsd file name
+     * @return  true - if file is valid, or no xsd file name
+     *          false - if file is invalid, or error occured.
+     */
     public static boolean isXmlIsValid(String xml, String xsd) {
         if (xsd.isEmpty()) {
             return true;
@@ -44,6 +57,11 @@ public class Util {
         }
     }
 
+    /**
+     * saves flowers container object to xml file
+     *
+     * @param fileName - xml file name
+     */
     public static void saveFile(String fileName, Flowers flowers) {
         XMLOutputFactory xof = XMLOutputFactory.newInstance();
         try (FileWriter fw = new FileWriter(fileName)) {

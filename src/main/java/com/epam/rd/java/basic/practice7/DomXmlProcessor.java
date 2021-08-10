@@ -23,6 +23,11 @@ import java.util.logging.Logger;
 
 import static com.epam.rd.java.basic.practice7.XmlConstants.*;
 
+/**
+ * parses xml file using DOM analyzer,
+ * creates Flowers container object,
+ * saves it to xml file
+ */
 public class DomXmlProcessor {
 
     private final Flowers flowers = new Flowers();
@@ -40,6 +45,9 @@ public class DomXmlProcessor {
         return flowers;
     }
 
+    /**
+     * parses xml file creating flowers container object
+     */
     public void parseFile() {
         DocumentBuilderFactory df = DocumentBuilderFactory.newInstance();
         df.setNamespaceAware(false);
@@ -137,6 +145,11 @@ public class DomXmlProcessor {
         flower.setGrowingTips(gt);
     }
 
+    /**
+     * saves flowers container object to xml file
+     *
+     * @param fileName - xml file name
+     */
     public void saveFile(String fileName) {
         StreamResult out = new StreamResult(new File(fileName));
         TransformerFactory tf = TransformerFactory.newInstance();
@@ -211,6 +224,13 @@ public class DomXmlProcessor {
         return doc;
     }
 
+    /**
+     * tests parsing, sorting and saving to file
+     *
+     * @param args - command line parameters
+     *             args[0] - xml file name
+     *             args[1] - xsd file name
+     */
     public static void main(String[] args) {
         if (args == null || args.length < 1) {
             throw new IllegalArgumentException("File name expected!");

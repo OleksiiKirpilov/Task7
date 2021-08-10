@@ -1,5 +1,8 @@
 package com.epam.rd.java.basic.practice7.pojo;
 
+/**
+ * class for storing visual parameters data
+ */
 public class VisualParameters {
 
     private String stemColour;

@@ -1,9 +1,13 @@
 package com.epam.rd.java.basic.practice7.pojo;
 
+/**
+ * class for storing AveLenFlower info
+ */
 public class AveLenFlower {
 
-    private final int value;
     private static final String MEASURE = "cm";
+
+    private final int value;
 
     public AveLenFlower(int value) {
         this.value = value;

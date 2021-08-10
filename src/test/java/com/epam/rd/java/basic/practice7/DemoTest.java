@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 public class DemoTest {
 
     @Test()
-    public void mainShouldCreateFile() {
+    public void mainShouldCreateFiles() {
         Demo.main(new String[]{"input.xml"});
         boolean b = false;
         try {

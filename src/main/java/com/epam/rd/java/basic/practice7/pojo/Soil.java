@@ -2,6 +2,9 @@ package com.epam.rd.java.basic.practice7.pojo;
 
 import static com.epam.rd.java.basic.practice7.XmlConstants.*;
 
+/**
+ * class for storing soil type
+ */
 public enum Soil {
 
     SOIL1("подзолистая"),

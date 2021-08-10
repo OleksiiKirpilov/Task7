@@ -20,6 +20,9 @@ import static com.epam.rd.java.basic.practice7.XmlConstants.*;
 
 public class StaxXmlProcessor extends SaxXmlProcessor {
 
+    /**
+     * parses xml file creating flowers container object
+     */
     @Override
     public void parseFile() {
         XMLInputFactory xif = XMLInputFactory.newInstance();
@@ -74,6 +77,13 @@ public class StaxXmlProcessor extends SaxXmlProcessor {
 
     }
 
+    /**
+     * tests parsing, sorting and saving to file
+     *
+     * @param args - command line parameters
+     *             args[0] - xml file name
+     *             args[1] - xsd file name
+     */
     public static void main(String[] args) {
         if (args == null || args.length < 1) {
             throw new IllegalArgumentException("File name expected!");

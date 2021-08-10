@@ -14,6 +14,11 @@ import java.util.logging.Logger;
 
 import static com.epam.rd.java.basic.practice7.XmlConstants.*;
 
+/**
+ * parses xml file using Sax method,
+ * creates Flowers container object,
+ * saves it to xml file
+ */
 public class SaxXmlProcessor extends DefaultHandler {
 
     protected final Flowers flowers = new Flowers();
@@ -115,6 +120,9 @@ public class SaxXmlProcessor extends DefaultHandler {
         this.xsd = xsd;
     }
 
+    /**
+     * parses xml file creating flowers container object
+     */
     public void parseFile() {
         SAXParserFactory spf = SAXParserFactory.newInstance();
         try {
@@ -126,6 +134,13 @@ public class SaxXmlProcessor extends DefaultHandler {
         }
     }
 
+    /**
+     * tests parsing, sorting and saving to file
+     *
+     * @param args - command line parameters
+     *             args[0] - xml file name
+     *             args[1] - xsd file name
+     */
     public static void main(String[] args) {
         if (args == null || args.length < 1) {
             throw new IllegalArgumentException("File name expected!");

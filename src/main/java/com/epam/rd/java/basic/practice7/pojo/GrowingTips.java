@@ -1,5 +1,8 @@
 package com.epam.rd.java.basic.practice7.pojo;
 
+/**
+ * class for storing growing tips data
+ */
 public class GrowingTips {
 
     private Tempreture tempreture;

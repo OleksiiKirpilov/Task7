@@ -14,7 +14,7 @@ public class Flowers {
 
     /**
      * Adds Flower object to container
-      * @param f
+      * @param f - Flower object
      */
     public void add(Flower f) {
         list.add(f);

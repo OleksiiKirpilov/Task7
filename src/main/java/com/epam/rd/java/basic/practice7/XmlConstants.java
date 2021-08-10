@@ -19,7 +19,6 @@ public class XmlConstants {
     public static final String LIGHT_REQUIRING = "lightRequiring";
     public static final String WATERING = "watering";
 
-
     public static final String ERR_ILLEGAL_ENUM = "Illegal enum value!";
     public static final String INDENT = "#text";
     public static final String ERR_UNKNOWN_NODE = "Unknown XML node: ";

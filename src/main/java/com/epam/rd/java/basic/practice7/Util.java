@@ -32,7 +32,7 @@ public class Util {
      * @param xml - xml file name
      * @param xsd - xsd file name
      * @return  true - if file is valid, or no xsd file name
-     *          false - if file is invalid, or error occured.
+     *          false - if file is invalid, or error occurred.
      */
     public static boolean isXmlIsValid(String xml, String xsd) {
         if (xsd.isEmpty()) {

@@ -1,4 +1,4 @@
-package com.epam.rd.java.basic.practice7;
+package com.epam.rd.java.basic.practice7.pojo;
 
 public class AveLenFlower {
 

@@ -1,4 +1,4 @@
-package com.epam.rd.java.basic.practice7;
+package com.epam.rd.java.basic.practice7.pojo;
 
 import static com.epam.rd.java.basic.practice7.XmlConstants.ERR_ILLEGAL_ENUM;
 

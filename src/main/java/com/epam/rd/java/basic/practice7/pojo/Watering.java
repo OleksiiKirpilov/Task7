@@ -1,11 +1,11 @@
-package com.epam.rd.java.basic.practice7;
+package com.epam.rd.java.basic.practice7.pojo;
 
-public class Tempreture {
+public class Watering {
 
     private int value;
-    private static final String MEASURE = "celcius";
+    private static final String MEASURE = "mlPerWeek";
 
-    public Tempreture(int value) {
+    public Watering(int value) {
         this.value = value;
     }
 

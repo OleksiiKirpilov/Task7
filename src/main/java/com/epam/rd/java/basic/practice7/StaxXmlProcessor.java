@@ -1,5 +1,10 @@
 package com.epam.rd.java.basic.practice7;
 
+import com.epam.rd.java.basic.practice7.pojo.Flower;
+import com.epam.rd.java.basic.practice7.pojo.GrowingTips;
+import com.epam.rd.java.basic.practice7.pojo.Lighting;
+import com.epam.rd.java.basic.practice7.pojo.VisualParameters;
+
 import javax.xml.namespace.QName;
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;
@@ -45,7 +50,7 @@ public class StaxXmlProcessor extends SaxXmlProcessor {
     private void processEndElement(XMLEvent e) {
         EndElement s = e.asEndElement();
         String tag = s.getName().getLocalPart();
-        Util.processEndTag(tag, this);
+        processEndTag(tag);
     }
 
     private void processStartElement(XMLEvent e) {
@@ -66,13 +71,14 @@ public class StaxXmlProcessor extends SaxXmlProcessor {
                 lighting = new Lighting(Lighting.LightRequiring.findValue(val));
                 break;
             default:
-                text = null;
-                break;
         }
 
     }
 
     public static void main(String[] args) {
+        if (args == null || args.length < 1) {
+            throw new IllegalArgumentException("File name expected!");
+        }
         StaxXmlProcessor p = new StaxXmlProcessor(args[0]);
         p.parseFile();
         Collections.sort(p.flowers.getFlowers());

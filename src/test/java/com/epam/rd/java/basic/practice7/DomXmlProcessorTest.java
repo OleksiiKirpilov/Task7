@@ -6,9 +6,12 @@ import org.junit.Test;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Collections;
 import java.util.logging.Logger;
 
 public class DomXmlProcessorTest {
+
+    private static final String FILE = "input.xml";
 
     @Test()
     public void mainShouldCreateFile() {
@@ -20,5 +23,12 @@ public class DomXmlProcessorTest {
             Logger.getGlobal().severe(e.getMessage());
         }
         Assert.assertTrue(b);
+    }
+
+    @Test
+    public void shouldCreateFlowersObjectWithSizeGreaterThanZero() {
+        DomXmlProcessor p = new DomXmlProcessor(FILE);
+        p.parseFile();
+        Assert.assertTrue(p.getObject().getFlowers().size() > 0);
     }
 }

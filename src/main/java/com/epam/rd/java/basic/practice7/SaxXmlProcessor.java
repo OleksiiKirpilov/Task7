@@ -1,5 +1,6 @@
 package com.epam.rd.java.basic.practice7;
 
+import com.epam.rd.java.basic.practice7.pojo.*;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -25,6 +26,9 @@ public class SaxXmlProcessor extends DefaultHandler {
     protected Lighting lighting;
     protected StringBuilder text;
 
+    public Flowers getObject() {
+        return flowers;
+    }
 
     @Override
     public void characters(char[] ch, int start, int length) throws SAXException {
@@ -51,14 +55,59 @@ public class SaxXmlProcessor extends DefaultHandler {
                         attributes.getValue(LIGHT_REQUIRING)));
                 break;
             default:
-                text = null;
-                break;
         }
     }
 
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
-        Util.processEndTag(qName, this);
+        processEndTag(qName);
+    }
+
+    protected void processEndTag(String qName) {
+        switch (qName) {
+            case FLOWER:
+                flowers.add(flower);
+                break;
+            case FLOWER_NAME:
+                flower.setName(text.toString());
+                break;
+            case FLOWER_SOIL:
+                flower.setSoil(Soil.findValue(text.toString()));
+                break;
+            case FLOWER_ORIGIN:
+                flower.setOrigin(text.toString());
+                break;
+            case FLOWER_AVE_LEN:
+                visualParameters.setAveLenFlower(
+                        new AveLenFlower(Integer.parseInt(text.toString())));
+                break;
+            case FLOWER_STEM_COLOUR:
+                visualParameters.setStemColour(text.toString());
+                break;
+            case FLOWER_LEAF_COLOUR:
+                visualParameters.setLeafColour(text.toString());
+                break;
+            case FLOWER_VISUAL:
+                flower.setVisualParameters(visualParameters);
+                break;
+            case TEMPRETURE:
+                growingTips.setTempreture(new Tempreture(Integer.parseInt(text.toString())));
+                break;
+            case WATERING:
+                growingTips.setWatering(new Watering(Integer.parseInt(text.toString())));
+                break;
+            case LIGHTING:
+                growingTips.setLighting(lighting);
+                break;
+            case FLOWER_MULTIPLYING:
+                flower.setMultiplying(Multiplying.findValue(text.toString()));
+                break;
+            case FLOWER_TIPS:
+                flower.setGrowingTips(growingTips);
+                break;
+            default:
+                break;
+        }
     }
 
     public SaxXmlProcessor(String fileName) {
@@ -77,6 +126,9 @@ public class SaxXmlProcessor extends DefaultHandler {
     }
 
     public static void main(String[] args) {
+        if (args == null || args.length < 1) {
+            throw new IllegalArgumentException("File name expected!");
+        }
         SaxXmlProcessor p = new SaxXmlProcessor(args[0]);
         p.parseFile();
         Collections.sort(p.flowers.getFlowers());

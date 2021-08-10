@@ -1,5 +1,6 @@
 package com.epam.rd.java.basic.practice7;
 
+import com.epam.rd.java.basic.practice7.pojo.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -32,6 +33,10 @@ public class DomXmlProcessor {
 
     public DomXmlProcessor(String fileName) {
         this.fileName = fileName;
+    }
+
+    public Flowers getObject() {
+        return flowers;
     }
 
     public void parseFile() {
@@ -206,6 +211,9 @@ public class DomXmlProcessor {
     }
 
     public static void main(String[] args) {
+        if (args == null || args.length < 1) {
+            throw new IllegalArgumentException("File name expected!");
+        }
         DomXmlProcessor p = new DomXmlProcessor(args[0]);
         p.parseFile();
         Collections.sort(p.flowers.getFlowers());

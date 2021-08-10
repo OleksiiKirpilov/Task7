@@ -10,6 +10,8 @@ import java.util.logging.Logger;
 
 public class SaxXmlProcessorTest {
 
+    private static final String FILE = "input.xml";
+
     @Test()
     public void mainShouldCreateFile() {
         SaxXmlProcessor.main(new String[]{"input.xml"});
@@ -20,5 +22,12 @@ public class SaxXmlProcessorTest {
             Logger.getGlobal().severe(e.getMessage());
         }
         Assert.assertTrue(b);
+    }
+
+    @Test
+    public void shouldCreateFlowersObjectWithSizeGreaterThanZero() {
+        DomXmlProcessor p = new DomXmlProcessor(FILE);
+        p.parseFile();
+        Assert.assertTrue(p.getObject().getFlowers().size() > 0);
     }
 }

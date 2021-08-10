@@ -1,4 +1,4 @@
-package com.epam.rd.java.basic.practice7;
+package com.epam.rd.java.basic.practice7.pojo;
 
 import java.util.ArrayList;
 import java.util.List;

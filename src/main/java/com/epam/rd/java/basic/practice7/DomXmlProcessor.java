@@ -165,6 +165,8 @@ public class DomXmlProcessor {
     private Node createDoc() throws ParserConfigurationException {
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         dbf.setNamespaceAware(true);
+        dbf.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+        dbf.setFeature("http://xml.org/sax/features/external-general-entities", false);
         DocumentBuilder db = dbf.newDocumentBuilder();
         Document doc = db.newDocument();
         Element root = doc.createElement(FLOWERS);

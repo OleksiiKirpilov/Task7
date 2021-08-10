@@ -24,8 +24,6 @@ public class SaxXmlProcessor extends DefaultHandler {
     private final Flowers flowers = new Flowers();
     private final String fileName;
 
-    private Document xmlDoc;
-
     private Flower flower;
     private VisualParameters visualParameters;
     private GrowingTips growingTips;

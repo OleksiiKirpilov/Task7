@@ -4,6 +4,7 @@ import com.epam.rd.java.basic.practice7.pojo.*;
 import org.xml.sax.SAXException;
 
 import javax.xml.XMLConstants;
+import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
@@ -28,11 +29,12 @@ public class Util {
         Source xmlFile = new StreamSource(new File(xml));
         try {
             SchemaFactory sf = SchemaFactory
-                .newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);   //NOSONAR
+                .newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
             // next line does not work and I don't know why
             sf.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
             Schema schema = sf.newSchema(new File(xsd));
             Validator validator = schema.newValidator();
+            validator.setProperty(XMLInputFactory.SUPPORT_DTD, false);
             validator.validate(xmlFile);
             return true;
         } catch (SAXException e) {

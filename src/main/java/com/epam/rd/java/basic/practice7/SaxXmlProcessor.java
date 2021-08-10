@@ -19,6 +19,7 @@ public class SaxXmlProcessor extends DefaultHandler {
 
     protected final Flowers flowers = new Flowers();
     protected final String fileName;
+    protected final String xsd;
 
     protected Flower flower;
     protected VisualParameters visualParameters;
@@ -110,8 +111,9 @@ public class SaxXmlProcessor extends DefaultHandler {
         }
     }
 
-    public SaxXmlProcessor(String fileName) {
+    public SaxXmlProcessor(String fileName, String xsd) {
         this.fileName = fileName;
+        this.xsd = xsd;
     }
 
     public void parseFile() {
@@ -129,7 +131,11 @@ public class SaxXmlProcessor extends DefaultHandler {
         if (args == null || args.length < 1) {
             throw new IllegalArgumentException("File name expected!");
         }
-        SaxXmlProcessor p = new SaxXmlProcessor(args[0]);
+        String xsd = (args.length > 1) ? args[1] : "";
+        SaxXmlProcessor p = new SaxXmlProcessor(args[0], xsd);
+        if (!Util.isXmlIsValid(p.fileName, p.xsd)) {
+            return;
+        }
         p.parseFile();
         Collections.sort(p.flowers.getFlowers());
         Util.saveFile("output.sax.xml", p.flowers);

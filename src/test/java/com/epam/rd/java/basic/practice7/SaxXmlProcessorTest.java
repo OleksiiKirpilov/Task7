@@ -26,8 +26,14 @@ public class SaxXmlProcessorTest {
 
     @Test
     public void shouldCreateFlowersObjectWithSizeGreaterThanZero() {
-        DomXmlProcessor p = new DomXmlProcessor(FILE);
+        SaxXmlProcessor p = new SaxXmlProcessor(FILE, "");
         p.parseFile();
         Assert.assertTrue(p.getObject().getFlowers().size() > 0);
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldThrowIAEIfNotFilenamePassed() {
+        SaxXmlProcessor.main(new String[0]);
+    }
+
 }

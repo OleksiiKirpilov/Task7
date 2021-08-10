@@ -1,10 +1,18 @@
 package com.epam.rd.java.basic.practice7;
 
 import com.epam.rd.java.basic.practice7.pojo.*;
+import org.xml.sax.SAXException;
 
+import javax.xml.XMLConstants;
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
+import javax.xml.transform.Source;
+import javax.xml.transform.stream.StreamSource;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
+import javax.xml.validation.Validator;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.logging.Logger;
@@ -13,7 +21,28 @@ import static com.epam.rd.java.basic.practice7.XmlConstants.*;
 
 public class Util {
 
-    private Util() {}
+    public static boolean isXmlIsValid(String xml, String xsd) {
+        if (xsd.isEmpty()) {
+            return true;
+        }
+        Source xmlFile = new StreamSource(new File(xml));
+        try {
+            SchemaFactory sf = SchemaFactory
+                .newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);   //NOSONAR
+            // next line does not work and I don't know why
+            sf.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+            Schema schema = sf.newSchema(new File(xsd));
+            Validator validator = schema.newValidator();
+            validator.validate(xmlFile);
+            return true;
+        } catch (SAXException e) {
+            Logger.getGlobal().severe("XML file is not valid!");
+            return false;
+        } catch (IOException e) {
+            Logger.getGlobal().severe(e.getMessage());
+            return false;
+        }
+    }
 
     public static void saveFile(String fileName, Flowers flowers) {
         XMLOutputFactory xof = XMLOutputFactory.newInstance();
@@ -78,6 +107,9 @@ public class Util {
             w.writeCharacters(text);
         }
         w.writeEndElement();
+    }
+
+    private Util() {
     }
 
 }

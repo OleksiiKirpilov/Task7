@@ -26,9 +26,14 @@ public class StaxXmlProcessorTest {
 
     @Test
     public void shouldCreateFlowersObjectWithSizeGreaterThanZero() {
-        DomXmlProcessor p = new DomXmlProcessor(FILE);
+        StaxXmlProcessor p = new StaxXmlProcessor(FILE, "");
         p.parseFile();
         Assert.assertTrue(p.getObject().getFlowers().size() > 0);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldThrowIAEIfNotFilenamePassed() {
+        StaxXmlProcessor.main(new String[0]);
     }
 
 }

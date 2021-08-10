@@ -28,11 +28,13 @@ public class DomXmlProcessor {
 
     private final Flowers flowers = new Flowers();
     private final String fileName;
+    private final String xsd;
     private Document xmlDoc;
 
 
-    public DomXmlProcessor(String fileName) {
+    public DomXmlProcessor(String fileName, String xsd) {
         this.fileName = fileName;
+        this.xsd = xsd;
     }
 
     public Flowers getObject() {
@@ -214,7 +216,11 @@ public class DomXmlProcessor {
         if (args == null || args.length < 1) {
             throw new IllegalArgumentException("File name expected!");
         }
-        DomXmlProcessor p = new DomXmlProcessor(args[0]);
+        String xsd = (args.length > 1) ? args[1] : "";
+        DomXmlProcessor p = new DomXmlProcessor(args[0], xsd);
+        if (!Util.isXmlIsValid(p.fileName, p.xsd)) {
+            return;
+        }
         p.parseFile();
         Collections.sort(p.flowers.getFlowers());
         p.saveFile("output.dom.xml");

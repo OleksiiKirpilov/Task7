@@ -79,14 +79,18 @@ public class StaxXmlProcessor extends SaxXmlProcessor {
         if (args == null || args.length < 1) {
             throw new IllegalArgumentException("File name expected!");
         }
-        StaxXmlProcessor p = new StaxXmlProcessor(args[0]);
+        String xsd = (args.length > 1) ? args[1] : "";
+        StaxXmlProcessor p = new StaxXmlProcessor(args[0], xsd);
+        if (!Util.isXmlIsValid(p.fileName, p.xsd)) {
+            return;
+        }
         p.parseFile();
         Collections.sort(p.flowers.getFlowers());
         Util.saveFile("output.stax.xml", p.flowers);
     }
 
-    public StaxXmlProcessor(String fileName) {
-        super(fileName);
+    public StaxXmlProcessor(String fileName, String xsd) {
+        super(fileName, xsd);
     }
 
 }

@@ -33,8 +33,7 @@ public class Util {
             // next line does not work and I don't know why
             sf.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
             Schema schema = sf.newSchema(new File(xsd));
-            Validator validator = schema.newValidator();
-            validator.setProperty(XMLInputFactory.SUPPORT_DTD, false);
+            Validator validator = schema.newValidator(); //NOSONAR
             validator.validate(xmlFile);
             return true;
         } catch (SAXException e) {

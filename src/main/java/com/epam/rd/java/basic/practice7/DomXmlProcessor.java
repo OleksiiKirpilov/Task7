@@ -6,6 +6,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -20,8 +21,7 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.logging.Logger;
 
-import static com.epam.rd.java.basic.practice7.XmlConstants.ERR_UNKNOWN_NODE;
-import static com.epam.rd.java.basic.practice7.XmlConstants.INDENT;
+import static com.epam.rd.java.basic.practice7.XmlConstants.*;
 
 public class DomXmlProcessor {
 
@@ -55,22 +55,22 @@ public class DomXmlProcessor {
         for (int i = 0; i < nodeList.getLength(); i++) {
             Node node = nodeList.item(i);
             switch (node.getNodeName()) {
-                case "name":
+                case FLOWER_NAME:
                     flower.setName(node.getTextContent());
                     break;
-                case "soil":
+                case FLOWER_SOIL:
                     flower.setSoil(Soil.findValue(node.getTextContent()));
                     break;
-                case "origin":
+                case FLOWER_ORIGIN:
                     flower.setOrigin(node.getTextContent());
                     break;
-                case "visualParameters":
+                case FLOWER_VISUAL:
                     setVisualParameters(flower, node.getChildNodes());
                     break;
-                case "growingTips":
+                case FLOWER_TIPS:
                     setGrowingTips(flower, node.getChildNodes());
                     break;
-                case "multiplying":
+                case FLOWER_MULTIPLYING:
                     flower.setMultiplying(Multiplying.findValue(node.getTextContent()));
                     break;
                 case INDENT:
@@ -87,13 +87,13 @@ public class DomXmlProcessor {
         for (int i = 0; i < nodes.getLength(); i++) {
             Node node = nodes.item(i);
             switch (node.getNodeName()) {
-                case "stemColour":
+                case FLOWER_STEM_COLOUR:
                     vp.setStemColour(node.getTextContent());
                     break;
-                case "leafColour":
+                case FLOWER_LEAF_COLOUR:
                     vp.setLeafColour(node.getTextContent());
                     break;
-                case "aveLenFlower":
+                case FLOWER_AVE_LEN:
                     vp.setAveLenFlower(new AveLenFlower(Integer.parseInt(node.getTextContent())));
                     break;
                 case INDENT:
@@ -110,16 +110,16 @@ public class DomXmlProcessor {
         for (int i = 0; i < nodes.getLength(); i++) {
             Node node = nodes.item(i);
             switch (node.getNodeName()) {
-                case "tempreture":
+                case TEMPRETURE:
                     gt.setTempreture(new Tempreture(Integer.parseInt(node.getTextContent())));
                     break;
-                case "lighting":
+                case LIGHTING:
                     Lighting.LightRequiring lightRequiring =
                             Lighting.LightRequiring.findValue(node.getAttributes().
                                     getNamedItem("lightRequiring").getTextContent());
                     gt.setLighting(new Lighting(lightRequiring));
                     break;
-                case "watering":
+                case WATERING:
                     gt.setWatering(new Watering(Integer.parseInt(node.getTextContent())));
                     break;
                 case INDENT:
@@ -134,6 +134,8 @@ public class DomXmlProcessor {
     public void saveFile(String fileName) {
         StreamResult out = new StreamResult(new File(fileName));
         TransformerFactory tf = TransformerFactory.newInstance();
+        tf.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+        tf.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
         Transformer t;
         try {
             t = tf.newTransformer();
@@ -165,51 +167,47 @@ public class DomXmlProcessor {
         dbf.setNamespaceAware(true);
         DocumentBuilder db = dbf.newDocumentBuilder();
         Document doc = db.newDocument();
-        Element root = doc.createElement("flowers");
+        Element root = doc.createElement(FLOWERS);
         root.setAttribute("xmlns:tns", "http://www.example.org/input");
         root.setAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
         root.setAttribute("xsi:schemaLocation", "http://www.example.org/input input.xsd");
         doc.appendChild(root);
         for (Flower f : flowers.getFlowers()) {
-            Element flower = doc.createElement("flower");
+            Element flower = doc.createElement(FLOWER);
             // append name, soil, origin
-            appendChild(doc, flower, "name", f.getName());
-            appendChild(doc, flower, "soil", f.getSoil().toString());
-            appendChild(doc, flower, "origin", f.getOrigin());
+            appendChild(doc, flower, FLOWER_NAME, f.getName());
+            appendChild(doc, flower, FLOWER_SOIL, f.getSoil().toString());
+            appendChild(doc, flower, FLOWER_ORIGIN, f.getOrigin());
             // append visualParameters
-            Element vp = doc.createElement("visualParameters");
-            appendChild(doc, vp, "stemColour", f.getVisualParameters().getStemColour());
-            appendChild(doc, vp, "leafColour", f.getVisualParameters().getLeafColour());
-            appendChildWithAttribute(doc, vp, "aveLenFlower",
+            Element vp = doc.createElement(FLOWER_VISUAL);
+            appendChild(doc, vp, FLOWER_STEM_COLOUR, f.getVisualParameters().getStemColour());
+            appendChild(doc, vp, FLOWER_LEAF_COLOUR, f.getVisualParameters().getLeafColour());
+            appendChildWithAttribute(doc, vp, FLOWER_AVE_LEN,
                     String.valueOf(f.getVisualParameters().getAveLenFlower().getValue()),
-                    "measure", AveLenFlower.getMeasure());
+                    MEASURE, AveLenFlower.getMeasure());
             flower.appendChild(vp);
             // append growingTips
-            Element gt = doc.createElement("growingTips");
-            appendChildWithAttribute(doc, gt, "tempreture",
+            Element gt = doc.createElement(FLOWER_TIPS);
+            appendChildWithAttribute(doc, gt, TEMPRETURE,
                     String.valueOf(f.getGrowingTips().getTempreture().getValue()),
-                    "measure", Tempreture.getMEASURE());
-            appendChildWithAttribute(doc, gt, "lighting", "", "lightRequiring",
+                    MEASURE, Tempreture.getMEASURE());
+            appendChildWithAttribute(doc, gt, LIGHTING, "", LIGHT_REQUIRING,
                     f.getGrowingTips().getLighting().getLightRequiring().toString());
-            appendChildWithAttribute(doc, gt, "watering",
+            appendChildWithAttribute(doc, gt, WATERING,
                     String.valueOf(f.getGrowingTips().getWatering().getValue()),
-                    "measure", Watering.getMEASURE());
+                    MEASURE, Watering.getMEASURE());
             flower.appendChild(gt);
-            // append multiplying
-            appendChild(doc, flower, "multiplying", f.getMultiplying().toString());
-            // append flower to root
+            appendChild(doc, flower, FLOWER_MULTIPLYING, f.getMultiplying().toString());
             root.appendChild(flower);
         }
         return doc;
     }
 
     public static void main(String[] args) {
-        DomXmlProcessor p = new DomXmlProcessor("input.xml");//args[0]);
+        DomXmlProcessor p = new DomXmlProcessor(args[0]);
         p.parseFile();
         Collections.sort(p.flowers.getFlowers());
         p.saveFile("output.dom.xml");
     }
 
-
 }
-

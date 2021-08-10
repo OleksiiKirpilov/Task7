@@ -4,7 +4,7 @@ import static com.epam.rd.java.basic.practice7.XmlConstants.ERR_ILLEGAL_ENUM;
 
 public class Lighting {
 
-    private LightRequiring lightRequiring;
+    private final LightRequiring lightRequiring;
 
     public Lighting(LightRequiring lightRequiring) {
         this.lightRequiring = lightRequiring;
@@ -12,10 +12,6 @@ public class Lighting {
 
     public LightRequiring getLightRequiring() {
         return lightRequiring;
-    }
-
-    public void setLightRequiring(LightRequiring lightRequiring) {
-        this.lightRequiring = lightRequiring;
     }
 
     public enum LightRequiring {

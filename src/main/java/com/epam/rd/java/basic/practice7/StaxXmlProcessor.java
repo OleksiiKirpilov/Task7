@@ -14,7 +14,6 @@ import javax.xml.stream.events.EndElement;
 import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
 import javax.xml.transform.stream.StreamSource;
-import java.util.Collections;
 import java.util.logging.Logger;
 
 import static com.epam.rd.java.basic.practice7.XmlConstants.*;
@@ -23,7 +22,7 @@ public class StaxXmlProcessor extends SaxXmlProcessor {
 
     @Override
     public void parseFile() {
-        XMLInputFactory xif =XMLInputFactory.newInstance();
+        XMLInputFactory xif = XMLInputFactory.newInstance();
         xif.setProperty(XMLInputFactory.SUPPORT_DTD, false);
         try {
             XMLEventReader r = xif.createXMLEventReader(new StreamSource(fileName));

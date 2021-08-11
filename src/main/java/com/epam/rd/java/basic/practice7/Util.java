@@ -9,9 +9,7 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
-import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
-import javax.xml.validation.Validator;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -29,10 +27,11 @@ public class Util {
 
     /**
      * validates xml file using xsd file
+     *
      * @param xml - xml file name
      * @param xsd - xsd file name
-     * @return  true - if file is valid, or no xsd file name
-     *          false - if file is invalid, or error occurred.
+     * @return true - if file is valid, or no xsd file name
+     * false - if file is invalid, or error occurred.
      */
     public static boolean isXmlIsValid(String xml, String xsd) {
         if (xsd.isEmpty()) {
@@ -44,8 +43,7 @@ public class Util {
                     .newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
             // next line does not work and I don't know why
             sf.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
-            Validator validator = sf.newSchema(new File(xsd)).newValidator();
-            validator.validate(xmlFile);
+            sf.newSchema(new File(xsd)).newValidator().validate(xmlFile);
             return true;
         } catch (SAXException e) {
             Logger.getGlobal().severe("XML file is not valid!");

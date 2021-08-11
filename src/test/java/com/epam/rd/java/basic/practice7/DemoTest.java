@@ -16,8 +16,8 @@ public class DemoTest {
         boolean b = false;
         try {
             b = Files.deleteIfExists(Paths.get("output.dom.xml"));
-            b |= Files.deleteIfExists(Paths.get("output.sax.xml"));
-            b |= Files.deleteIfExists(Paths.get("output.stax.xml"));
+            b &= Files.deleteIfExists(Paths.get("output.sax.xml"));
+            b &= Files.deleteIfExists(Paths.get("output.stax.xml"));
         } catch (IOException e) {
             Logger.getGlobal().severe(e.getMessage());
         }

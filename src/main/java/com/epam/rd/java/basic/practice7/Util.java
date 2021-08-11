@@ -44,8 +44,7 @@ public class Util {
                     .newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
             // next line does not work and I don't know why
             sf.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
-            Schema schema = sf.newSchema(new File(xsd));
-            Validator validator = schema.newValidator();    //NOSONAR
+            Validator validator = sf.newSchema(new File(xsd)).newValidator();
             validator.validate(xmlFile);
             return true;
         } catch (SAXException e) {

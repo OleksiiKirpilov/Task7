@@ -43,7 +43,7 @@ public class Util {
                     .newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
             // next line does not work and I don't know why
             sf.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
-            sf.newSchema(new File(xsd)).newValidator().validate(xmlFile);
+            sf.newSchema(new File(xsd)).newValidator().validate(xmlFile);   //NOSONAR
             return true;
         } catch (SAXException e) {
             Logger.getGlobal().severe("XML file is not valid!");

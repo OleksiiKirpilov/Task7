@@ -151,6 +151,9 @@ public class SaxXmlProcessor extends DefaultHandler {
             return;
         }
         p.parseFile();
+        if (p.flowers.getFlowers().isEmpty()) {
+            return;
+        }
         p.flowers.sort(1);
         Util.saveFile("output.sax.xml", p.flowers);
     }

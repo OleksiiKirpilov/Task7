@@ -31,6 +31,13 @@ public class SaxXmlProcessorTest {
         Assert.assertTrue(p.getObject().getFlowers().size() > 0);
     }
 
+    @Test
+    public void shouldCreateEmptyFlowersObjectIfWrongFile() {
+        SaxXmlProcessor p = new SaxXmlProcessor("input.txt", "");
+        p.parseFile();
+        Assert.assertTrue(p.getObject().getFlowers().isEmpty());
+    }
+
     @Test(expected = IllegalArgumentException.class)
     public void shouldThrowIAEIfNotFilenamePassed() {
         SaxXmlProcessor.main(new String[0]);

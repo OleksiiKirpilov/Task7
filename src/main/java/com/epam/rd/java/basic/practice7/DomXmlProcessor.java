@@ -56,6 +56,7 @@ public class DomXmlProcessor {
             xmlDoc = df.newDocumentBuilder().parse(fileName);
         } catch (SAXException | IOException | ParserConfigurationException e) {
             Logger.getGlobal().severe(e.getMessage());
+            return;
         }
         NodeList flowerNodes = xmlDoc.getElementsByTagName("flower");
         for (int i = 0; i < flowerNodes.getLength(); i++) {
@@ -241,6 +242,9 @@ public class DomXmlProcessor {
             return;
         }
         p.parseFile();
+        if (p.flowers.getFlowers().isEmpty()) {
+            return;
+        }
         p.flowers.sort(0);
         p.saveFile("output.dom.xml");
     }

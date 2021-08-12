@@ -31,6 +31,13 @@ public class DomXmlProcessorTest {
         Assert.assertTrue(p.getObject().getFlowers().size() > 0);
     }
 
+    @Test
+    public void shouldCreateEmptyFlowersObjectIfWrongFile() {
+        DomXmlProcessor p = new DomXmlProcessor("input.txt", "");
+        p.parseFile();
+        Assert.assertTrue(p.getObject().getFlowers().isEmpty());
+    }
+
     @Test(expected = IllegalArgumentException.class)
     public void shouldThrowIAEIfNotFilenamePassed() {
         DomXmlProcessor.main(new String[0]);

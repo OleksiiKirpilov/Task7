@@ -31,6 +31,13 @@ public class StaxXmlProcessorTest {
         Assert.assertTrue(p.getObject().getFlowers().size() > 0);
     }
 
+    @Test
+    public void shouldCreateEmptyFlowersObjectIfWrongFile() {
+        StaxXmlProcessor p = new StaxXmlProcessor("input.txt", "");
+        p.parseFile();
+        Assert.assertTrue(p.getObject().getFlowers().isEmpty());
+    }
+
     @Test(expected = IllegalArgumentException.class)
     public void shouldThrowIAEIfNotFilenamePassed() {
         StaxXmlProcessor.main(new String[0]);

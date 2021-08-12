@@ -1,6 +1,7 @@
 package com.epam.rd.java.basic.practice7;
 
 import com.epam.rd.java.basic.practice7.pojo.Flower;
+import com.epam.rd.java.basic.practice7.pojo.Flowers;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -37,4 +38,14 @@ public class FlowerTest {
         Assert.assertNotEquals(f1, p1);
     }
 
+    @Test
+    public void shouldAddElements() {
+        DomXmlProcessor p1 = new DomXmlProcessor(INPUT, "");
+        p1.parseFile();
+        Flowers c = p1.getObject();
+        Flower f1 = c.getFlowers().get(0);
+        c.add(f1);
+        c.sort(0);
+        Assert.assertEquals(3, c.getFlowers().size());
+    }
 }

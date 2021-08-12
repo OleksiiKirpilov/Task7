@@ -33,7 +33,6 @@ public class DomXmlProcessor {
     private final Flowers flowers = new Flowers();
     private final String fileName;
     private final String xsd;
-    private Document xmlDoc;
 
 
     public DomXmlProcessor(String fileName, String xsd) {
@@ -51,6 +50,7 @@ public class DomXmlProcessor {
     public void parseFile() {
         DocumentBuilderFactory df = DocumentBuilderFactory.newInstance();
         df.setNamespaceAware(false);
+        Document xmlDoc;
         try {
             df.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
             xmlDoc = df.newDocumentBuilder().parse(fileName);

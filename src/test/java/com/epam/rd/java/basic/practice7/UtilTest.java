@@ -15,4 +15,14 @@ public class UtilTest {
         Assert.assertFalse(Util.isXmlIsValid("invalidXML.xml", "input.xsd"));
     }
 
+    @Test()
+    public void mainReturnFalseIfXsdNotFound() {
+        Assert.assertFalse(Util.isXmlIsValid("invalidXML.xml", "input.xxsd"));
+    }
+
+    @Test()
+    public void mainReturnFalseIfXmlNotFound() {
+        Assert.assertFalse(Util.isXmlIsValid("invalidXML-.xml", "input.xsd"));
+    }
+
 }

@@ -37,8 +37,8 @@ public class Util {
         if (xsd.isEmpty()) {
             return true;
         }
-        Source xmlFile = new StreamSource(new File(xml));
         try {
+            Source xmlFile = new StreamSource(new File(xml));
             SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
             // next line does not work and I don't know why
             sf.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);

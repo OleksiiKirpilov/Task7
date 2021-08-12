@@ -39,8 +39,7 @@ public class Util {
         }
         Source xmlFile = new StreamSource(new File(xml));
         try {
-            SchemaFactory sf = SchemaFactory
-                    .newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+            SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
             // next line does not work and I don't know why
             sf.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
             sf.newSchema(new File(xsd)).newValidator().validate(xmlFile);   //NOSONAR

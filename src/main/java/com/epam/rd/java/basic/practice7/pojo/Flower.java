@@ -80,11 +80,9 @@ public class Flower implements Comparable<Flower> {
         }
         Flower flower = (Flower) o;
         return Objects.equals(name, flower.name)
-                && soil == flower.soil
+                && soil.toString() == flower.soil.toString()
                 && Objects.equals(origin, flower.origin)
-                && Objects.equals(visualParameters, flower.visualParameters)
-                && Objects.equals(growingTips, flower.growingTips)
-                && multiplying == flower.multiplying;
+                && multiplying.toString() == flower.multiplying.toString();
     }
 
     @Override

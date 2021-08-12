@@ -20,4 +20,21 @@ public class FlowerTest {
         Assert.assertNotEquals(f1, f2);
         Assert.assertEquals(f1, f3);
     }
+
+    @Test
+    public void equalsShouldReturnTrueIfSameObjects() {
+        DomXmlProcessor p1 = new DomXmlProcessor(INPUT, "");
+        p1.parseFile();
+        Flower f1 = p1.getObject().getFlowers().get(0);
+        Assert.assertEquals(f1, f1);
+    }
+
+    @Test
+    public void equalsShouldReturnFalseIfObjectsAreDifferentClasses() {
+        DomXmlProcessor p1 = new DomXmlProcessor(INPUT, "");
+        p1.parseFile();
+        Flower f1 = p1.getObject().getFlowers().get(0);
+        Assert.assertNotEquals(f1, p1);
+    }
+
 }

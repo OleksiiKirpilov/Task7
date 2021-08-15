@@ -11,6 +11,7 @@ import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
+import javax.xml.validation.Validator;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -46,7 +47,10 @@ public class Util {
             sf.setProperty(XMLConstants.ACCESS_EXTERNAL_DTD, "");
             sf.setProperty(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
             Schema s = sf.newSchema(new File(xsd));
-            s.newValidator().validate(xmlFile);                                 // NOSONAR
+            Validator v = s.newValidator();
+            v.setProperty(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+            v.setProperty(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
+            v.validate(xmlFile);
             return true;
         } catch (SAXException e) {
             Logger.getGlobal().severe("XML file is not valid!");

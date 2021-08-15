@@ -14,7 +14,7 @@ public class DomXmlProcessorTest {
 
     @Test()
     public void mainShouldCreateFile() {
-        DomXmlProcessor.main(new String[]{"input.xml"});
+        DomXmlProcessor.main(new String[]{FILE});
         boolean b = false;
         try {
             b = Files.deleteIfExists(Paths.get("output.dom.xml"));

@@ -1,7 +1,5 @@
 package com.epam.rd.java.basic.practice7;
 
-import com.epam.rd.java.basic.practice7.pojo.Flowers;
-import com.epam.rd.java.basic.practice7.pojo.Soil;
 import org.junit.Test;
 
 public class FlowersTest {

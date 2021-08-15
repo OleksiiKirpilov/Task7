@@ -48,4 +48,15 @@ public class FlowerTest {
         c.sort(0);
         Assert.assertEquals(3, c.getFlowers().size());
     }
+
+    @Test
+    public void shouldReturnSameHashForSameFlowers() {
+        DomXmlProcessor p1 = new DomXmlProcessor(INPUT, "");
+        SaxXmlProcessor p2 = new SaxXmlProcessor(INPUT, "");
+        p1.parseFile();
+        p2.parseFile();
+        Flower f1 = p1.getObject().getFlowers().get(0);
+        Flower f2 = p1.getObject().getFlowers().get(0);
+        Assert.assertEquals(f1.hashCode(), f2.hashCode());
+    }
 }

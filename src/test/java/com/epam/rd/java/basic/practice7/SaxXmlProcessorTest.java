@@ -14,7 +14,7 @@ public class SaxXmlProcessorTest {
 
     @Test()
     public void mainShouldCreateFile() {
-        SaxXmlProcessor.main(new String[]{"input.xml"});
+        SaxXmlProcessor.main(new String[]{FILE});
         boolean b = false;
         try {
             b = Files.deleteIfExists(Paths.get("output.sax.xml"));

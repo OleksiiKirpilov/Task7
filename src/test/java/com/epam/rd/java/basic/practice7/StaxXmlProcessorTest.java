@@ -14,7 +14,7 @@ public class StaxXmlProcessorTest {
 
     @Test()
     public void mainShouldCreateFile() {
-        StaxXmlProcessor.main(new String[]{"input.xml"});
+        StaxXmlProcessor.main(new String[]{FILE});
         boolean b = false;
         try {
             b = Files.deleteIfExists(Paths.get("output.stax.xml"));

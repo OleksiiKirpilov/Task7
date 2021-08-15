@@ -113,18 +113,16 @@ public class Util {
 
     private static void appendElement(XMLStreamWriter w, String name, String text)
             throws XMLStreamException {
-        w.writeStartElement(name);
-        if (!text.isEmpty()) {
-            w.writeCharacters(text);
-        }
-        w.writeEndElement();
+        appendElementWithAttribute(w, name, text, "", "");
     }
 
     private static void appendElementWithAttribute(
             XMLStreamWriter w, String name, String text,
             String attrName, String attrValue) throws XMLStreamException {
         w.writeStartElement(name);
-        w.writeAttribute(attrName, attrValue);
+        if (!attrName.isEmpty()) {
+            w.writeAttribute(attrName, attrValue);
+        }
         if (!text.isEmpty()) {
             w.writeCharacters(text);
         }

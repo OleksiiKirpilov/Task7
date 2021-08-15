@@ -59,4 +59,5 @@ public class FlowerTest {
         Flower f2 = p1.getObject().getFlowers().get(0);
         Assert.assertEquals(f1.hashCode(), f2.hashCode());
     }
+
 }

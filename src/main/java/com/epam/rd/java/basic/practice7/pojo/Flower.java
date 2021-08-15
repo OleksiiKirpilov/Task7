@@ -82,7 +82,13 @@ public class Flower implements Comparable<Flower> {
         return Objects.equals(name, flower.name)
                 && soil.toString().equals(flower.soil.toString())
                 && Objects.equals(origin, flower.origin)
-                && multiplying.toString().equals(flower.multiplying.toString());
+                && visualParameters.getAveLenFlower().getValue() == flower.visualParameters.getAveLenFlower().getValue()
+                && visualParameters.getLeafColour().equals(flower.visualParameters.getLeafColour())
+                && visualParameters.getStemColour().equals(flower.visualParameters.getStemColour())
+                && growingTips.getLighting().getLightRequiring().equals(flower.growingTips.getLighting().getLightRequiring())
+                && growingTips.getTempreture().getValue() == flower.growingTips.getTempreture().getValue()
+                && growingTips.getWatering().getValue() == flower.growingTips.getWatering().getValue()
+                && multiplying.equals(flower.multiplying);
     }
 
     @Override

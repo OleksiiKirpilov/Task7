@@ -42,7 +42,9 @@ public class Util {
             SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
             // next line does not work and I don't know why
             sf.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
-            sf.newSchema(new File(xsd)).newValidator().validate(xmlFile);   //NOSONAR
+            sf.setProperty(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+            sf.setProperty(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
+            sf.newSchema(new File(xsd)).newValidator().validate(xmlFile);
             return true;
         } catch (SAXException e) {
             Logger.getGlobal().severe("XML file is not valid!");

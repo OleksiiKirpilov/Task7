@@ -11,7 +11,6 @@ import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
-import javax.xml.validation.Validator;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -43,6 +42,7 @@ public class Util {
             Source xmlFile = new StreamSource(new File(xml));
             SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
             sf.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+            // somehow it makes local sonar happy but not ementor one
             sf.setProperty(XMLConstants.ACCESS_EXTERNAL_DTD, "");
             sf.setProperty(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
             Schema s = sf.newSchema(new File(xsd));

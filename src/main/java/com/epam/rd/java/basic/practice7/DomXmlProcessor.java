@@ -91,7 +91,6 @@ public class DomXmlProcessor {
                 case INDENT:
                     break;
                 default:
-                    Logger.getGlobal().severe(ERR_UNKNOWN_NODE + node.getNodeName());
             }
         }
         return flower;
@@ -114,7 +113,6 @@ public class DomXmlProcessor {
                 case INDENT:
                     break;
                 default:
-                    Logger.getGlobal().severe(ERR_UNKNOWN_NODE + node.getNodeName());
             }
         }
         flower.setVisualParameters(vp);
@@ -140,7 +138,6 @@ public class DomXmlProcessor {
                 case INDENT:
                     break;
                 default:
-                    Logger.getGlobal().severe(ERR_UNKNOWN_NODE + node.getNodeName());
             }
         }
         flower.setGrowingTips(gt);
@@ -156,9 +153,8 @@ public class DomXmlProcessor {
         TransformerFactory tf = TransformerFactory.newInstance();
         tf.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
         tf.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
-        Transformer t;
         try {
-            t = tf.newTransformer();
+            Transformer t = tf.newTransformer();
             t.setOutputProperty(OutputKeys.INDENT, "yes");
             t.transform(new DOMSource(createDoc()), out);
         } catch (TransformerException | ParserConfigurationException e) {

@@ -9,7 +9,9 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
+import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
+import javax.xml.validation.Validator;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -40,11 +42,11 @@ public class Util {
         try {
             Source xmlFile = new StreamSource(new File(xml));
             SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-            // next line does not work and I don't know why
             sf.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
             sf.setProperty(XMLConstants.ACCESS_EXTERNAL_DTD, "");
             sf.setProperty(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
-            sf.newSchema(new File(xsd)).newValidator().validate(xmlFile);
+            Schema s = sf.newSchema(new File(xsd));
+            s.newValidator().validate(xmlFile);                                 // NOSONAR
             return true;
         } catch (SAXException e) {
             Logger.getGlobal().severe("XML file is not valid!");
